@@ -20,7 +20,8 @@ SSH into the raspBMC
 
 The most efficient way to get into the command line for raspBMC OS is to SSH it (http://www.raspbmc.com/wiki/user/using-ssh/)
 
-Once you login your screen should say something like </br>
+Once you login your screen should say something like  
+
 <b>pi@raspbmc :</b>
 
 There is a great tutorial for Rasbian OS (http://dataplicity.com/get-started/raspberry-pi/), but for RaspBMC there are some minor changes 
@@ -29,7 +30,7 @@ There is a great tutorial for Rasbian OS (http://dataplicity.com/get-started/ras
 
 Just before 'Install the dataplicity examples' you got to sudo install git and ssl certificates
 
-<b>sudo apt-get install git-core</b></br>
+<b>sudo apt-get install git-core</b>  
 <b>sudo apt-get install ca-certificates</b> (more details on ssl can be found here https://help.ubuntu.com/community/OpenSSL)
 
 
