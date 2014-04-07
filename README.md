@@ -33,6 +33,19 @@ Just before 'Install the dataplicity examples' you got to sudo install git and s
 <b>sudo apt-get install git-core</b>  
 <b>sudo apt-get install ca-certificates</b> (more details on ssl can be found here https://help.ubuntu.com/community/OpenSSL)
 
+<h4>3 - 'Register hardware'</h4>
 
+<b>sudo dataplicity init -u USERNAME -p PASSWORD</b> initializes the dataplicity Core  
 
+Now in raspBMC '~/' = /pi/home/  
+to avoid this confusion quickly do a 'ls -la' to list all files, by default it should be  
+/pi/home/dataplicity/dataplicity/examples/sinewave
+
+<h4>5 - 'Hotting up'</h4>  
+
+<b>'vi' editor</> should be present by default to edit text files  
+<b>sudo vi dataplicity.conf</b> will get you into the file as admin. Press 'i' to edit the file and once completed press 'Esc' followed by 'Shift + zz" to save and close the file  
+
+To create a new file with 'vi' just go  
+<b>'sudo vi pitest.py'</b>
 
