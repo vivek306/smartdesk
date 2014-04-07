@@ -43,7 +43,7 @@ to avoid this confusion quickly do a 'ls -la' to list all files, by default it s
 
 <h4>5 - 'Hotting up'</h4>  
 
-<b>'vi' editor</> should be present by default to edit text files  
+<b>'vi' editor</b> should be present by default to edit text files  
 <b>sudo vi dataplicity.conf</b> will get you into the file as admin. Press 'i' to edit the file and once completed press 'Esc' followed by 'Shift + zz" to save and close the file  
 
 To create a new file with 'vi' just go  
