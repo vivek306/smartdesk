@@ -26,7 +26,7 @@ Once you login your screen should say something like
 
 There is a great tutorial for Rasbian OS (http://dataplicity.com/get-started/raspberry-pi/), but for RaspBMC there are some minor changes 
 
-<h4>1 - 'Bake a pi'</h4>
+<h4>1 - 'Prep the pi'</h4>
 
 Just before 'Install the dataplicity examples' you got to sudo install git and ssl certificates
 
@@ -37,9 +37,9 @@ Just before 'Install the dataplicity examples' you got to sudo install git and s
 
 <b>sudo dataplicity init -u USERNAME -p PASSWORD</b> initializes the dataplicity Core  
 
-Now in raspBMC '~/' = /pi/home/  
+Now in raspBMC '~/' = /home/pi/  
 to avoid this confusion quickly do a 'ls -la' to list all files, by default it should be  
-/pi/home/dataplicity/dataplicity/examples/sinewave
+/home/pi/dataplicity/dataplicity/examples/sinewave
 
 <h4>5 - 'Hotting up'</h4>  
 
