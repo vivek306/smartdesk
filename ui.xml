@@ -10,8 +10,8 @@
         	     xunit="Time" yunit="Temperature (degrees)" />
 	    	<form button="Update">
                     <textedit title="Network Type (0 - None, 1 - wlan0, 2 - Eth0)"
-                        source="device.settings.my.network.code"
-                        destination="device.settings.my.network.code" type="float" />
+                        source="device.settings.my.connection.code"
+                        destination="device.settings.my.connection.code" type="float" />
                 </form>
 	    </tab>
 	</mastertabcontainer>
