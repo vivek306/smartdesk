@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui>
+    <interface id="dataplicity">
+        <mastertabcontainer title="${device.name}" id="top-tabs">
+            <tab title="Network settings">
+    		<graph title="Temperature"
+        	     sampler="network"
+        	     min="20"
+        	     max="80"
+        	     xunit="Time" yunit="Temperature (degrees)" />
+	    	<form button="Update">
+                    <textedit title="Network Type (0 - None, 1 - wlan0, 2 - Eth0)"
+                        source="device.settings.my.network.code"
+                        destination="device.settings.my.network.code" type="float" />
+                </form>
+	    </tab>
+	</mastertabcontainer>
+    </interface>
+</ui>
