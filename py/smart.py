@@ -29,20 +29,19 @@ class NetworkSettings(Task):
         )[20:24])
 
 
-    @onsignal('settings_update', 'my')
+    @onsignal('settings_update', 'smartdesk')
     def on_settings_update(self, name, settings):
-        """Catches the 'settings_update' signal for 'my'"""
+        """Catches the 'settings_update' signal for 'smartdesk'"""
         # This signal is sent on startup and whenever settings are changed by the server
-        self.code = settings.get_float(self.sampler, 'code', 1.0)
-        print 'I am the network code ',  self.code
+        self.code = settings.get_float('connection', 'code', 1.0)
+        print 'I am the network code', ip ,  self.code
    
     def poll(self):
 	"""Called on a schedule defined in dataplicity.conf"""
         #Login with default xbmc/xbmc credential
         url = 'http://' + ip + '/jsonrpc'
         xbmc = XBMC(url)
-        xbmc.Input.Up()
-	self.do_sample(get_rpi_temperature())
+        self.do_sample(get_rpi_temperature())
        
     def do_sample(self, value):
         self.client.sample_now(self.sampler, value)

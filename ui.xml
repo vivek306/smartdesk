@@ -8,10 +8,11 @@
         	     min="20"
         	     max="80"
         	     xunit="Time" yunit="Temperature (degrees)" />
-	    	<form button="Update">
-                    <textedit title="Network Type (0 - None, 1 - wlan0, 2 - Eth0)"
-                        source="device.settings.my.connection.code"
-                        destination="device.settings.my.connection.code" type="float" />
+		<text>TYPES: 10 - None, 15 wLan0, 20 Eth0</text>
+		<form button="Update" title="Network parameters">
+                    <textedit title="Network Type"
+                        source="device.settings.smartdesk.connection.code"
+                        destination="device.settings.smartdesk.connection.code" type="float" />
                 </form>
 	    </tab>
 	</mastertabcontainer>
