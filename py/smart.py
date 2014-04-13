@@ -1,10 +1,12 @@
 from dataplicity.client.task import Task, onsignal
 
 import time
+import json
 import os
 import socket
 import fcntl
 import struct
+import urllib2
 from xbmcjson import XBMC
 
 # CPU Usage
@@ -19,7 +21,12 @@ def get_rpi_temperature():
          temperature = float(f.read()) / 1000.0
     return temperature
 
-
+# XBMC Label information
+def get_xbmc_label(self, ip):
+    json_result = urllib2.urlopen("http:// + ip + /jsonrpc?request={%22jsonrpc%22:%222.0%22,%22method%22:%22XBMC.GetInfoLabels%22,%22params%22:%20{%20%22labels%22:%20[%22Container.Viewmode%22,%20%22ListItem.Label%22,%20%22Control.GetLabel(501)%22,%20%22Container.NumItems%22,%20%22Container.Position%22,%20%22Container.ListItem(-1).Label%22,%20%22Container.ListItem(1).Label%22%20]%20},%20%22id%22:1}").read()
+    xbmc_info = json.loads(json_result)
+    return xbmc_info["result"]["ListItem.Label"]
+	
 class NetworkSettings(Task):
     def pre_startup(self):
         """Called prior to running the project"""
@@ -62,8 +69,9 @@ class NetworkSettings(Task):
 		time.sleep(4)
 		xbmc.GUI.ShowNotification({"title":"Smartdesk", "message":ip})
 		self.goto_music(xbmc)
-		self.goto_music_addons(xbmc)
-		self.goto_radio(xbmc)
+		self.goto_goal(xbmc, ip, "Music Add-ons")
+		#self.goto_goal(xbmc, ip, "Radio")
+
 
     def goto_music(self, xbmc):
 	xbmc.GUI.ActivateWindow(window="music")
@@ -72,15 +80,17 @@ class NetworkSettings(Task):
     def select_xbmc(self, xbmc):
 	xbmc.Input.Select()
 	time.sleep(5)
-
-    def goto_music_addons(self, xbmc):
+	
+    def auto_selector_xbmc(self, xbmc, required, acquired, ip):
+	while (required != acquired):
+		xbmc.Input.Down()
+		time.sleep(3)  		
+   		acquired = get_xbmc_label(ip)
+ 
+    def goto_goal(self, xbmc, ip, required):
+    	acquired = get_xbmc_label(ip)
+	self.auto_selector_xbmc(xbmc, required, acquired, ip)
 	self.select_xbmc(xbmc)
-
-    def goto_radio(self, xbmc):
-	 for x in range(0, 5):
-    		xbmc.Input.Down()
-		time.sleep(2)
-	 self.select_xbmc(xbmc)
 
     def login_xbmc(self, ip):
   	# Login with default xbmc/xbmc credential
