@@ -22,11 +22,18 @@ def get_rpi_temperature():
     return temperature
 
 # XBMC Label information
-def get_xbmc_label(self, ip):
-    json_result = urllib2.urlopen("http:// + ip + /jsonrpc?request={%22jsonrpc%22:%222.0%22,%22method%22:%22XBMC.GetInfoLabels%22,%22params%22:%20{%20%22labels%22:%20[%22Container.Viewmode%22,%20%22ListItem.Label%22,%20%22Control.GetLabel(501)%22,%20%22Container.NumItems%22,%20%22Container.Position%22,%20%22Container.ListItem(-1).Label%22,%20%22Container.ListItem(1).Label%22%20]%20},%20%22id%22:1}").read()
+def get_xbmc_label(ip):
+    print "My get label ip is " + ip
+    json_result = urllib2.urlopen("http://" + ip + "/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22method%22:%22XBMC.GetInfoLabels%22,%22params%22:%20{%20%22labels%22:%20[%22Container.Viewmode%22,%20%22ListItem.Label%22,%20%22Control.GetLabel(501)%22,%20%22Container.NumItems%22,%20%22Container.Position%22,%20%22Container.ListItem(-1).Label%22,%20%22Container.ListItem(1).Label%22%20]%20},%20%22id%22:1}").read()
     xbmc_info = json.loads(json_result)
-    return xbmc_info["result"]["ListItem.Label"]
-	
+    return xbmc_info
+
+def get_xbmc_main_label(ip):
+    print "My get label ip is " + ip
+    json_result = urllib2.urlopen("http://" + ip + "/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22method%22:%22GUI.GetProperties%22,%22params%22:{%22properties%22:[%22currentwindow%22]},%20%22id%22:%201}").read()
+    xbmc_info = json.loads(json_result)
+    return xbmc_info["result"]["currentwindow"]["label"]
+
 class NetworkSettings(Task):
     def pre_startup(self):
         """Called prior to running the project"""
@@ -64,31 +71,60 @@ class NetworkSettings(Task):
 	print 'I am the network code', ip,  self.code
 	# Notify the user if network ip is detected
    	if ip != "No Connection":
+		required = ""
 		xbmc = self.login_xbmc(ip)
-		xbmc.GUI.ActivateWindow(window="home")
-		time.sleep(4)
+		# Show notification
 		xbmc.GUI.ShowNotification({"title":"Smartdesk", "message":ip})
-		self.goto_music(xbmc)
-		self.goto_goal(xbmc, ip, "Music Add-ons")
-		#self.goto_goal(xbmc, ip, "Radio")
+		time.sleep(5)
+		self.goto_music(xbmc, ip)
+		print "I am in music"
+		required = "Music Add-ons"
+		self.goto_goal(xbmc, ip, required)
+		print "I am in music addons"
+	 	time.sleep(5)
+		required = "Radio"
+		self.goto_goal(xbmc, ip, required)
+		print "I am in radio"
+		time.sleep(10)
+		required = "Browse by genre"
+		self.goto_goal(xbmc, ip, required)
+		print "I am in genre"
+		time.sleep(10)
+		self.goto_goal(xbmc, ip, "Celtic")
+		print "I am in celtic"
+		self.goto_goal(xbmc, ip, "Celtic Music Radio")
+		print "I am playing celic music station"
 
-
-    def goto_music(self, xbmc):
+    def goto_music(self, xbmc, ip):
 	xbmc.GUI.ActivateWindow(window="music")
-	time.sleep(5)
+	# Clear History
+	destination = "Home"
+	at = get_xbmc_main_label(ip)
+	self.auto_pager(xbmc, ip, destination, at)
+	xbmc.GUI.ActivateWindow(window="music")
+
+    def auto_pager(self, xbmc, ip, destination, at):
+	while (destination != at):
+		print "I am at " + at
+		xbmc.Input.Back()
+ 		time.sleep(2)
+		at = get_xbmc_main_label(ip)
 
     def select_xbmc(self, xbmc):
 	xbmc.Input.Select()
 	time.sleep(5)
-	
+
     def auto_selector_xbmc(self, xbmc, required, acquired, ip):
 	while (required != acquired):
+		print "a " + acquired + " r " + required
 		xbmc.Input.Down()
-		time.sleep(3)  		
-   		acquired = get_xbmc_label(ip)
- 
+		time.sleep(2)
+   		acquired = get_xbmc_label(ip)["result"]["ListItem.Label"]
+
     def goto_goal(self, xbmc, ip, required):
-    	acquired = get_xbmc_label(ip)
+    	print required
+	acquired = get_xbmc_label(ip)["result"]["ListItem.Label"]
+	time.sleep(2)
 	self.auto_selector_xbmc(xbmc, required, acquired, ip)
 	self.select_xbmc(xbmc)
 
