@@ -2,17 +2,41 @@
 <ui>
     <interface id="dataplicity">
         <mastertabcontainer title="${device.name}" id="top-tabs">
-            <tab title="Network settings">
-    		<graph title="Temperature"
+            <tab title="Settings">
+    		<graph title="CPU Process"
         	     sampler="network"
         	     min="20"
         	     max="80"
-        	     xunit="Time" yunit="Temperature (degrees)" />
-		<text>TYPES: 10 - None, 15 wLan0, 20 Eth0</text>
+        	     xunit="Time" yunit="CPU (process %)" />
+		<text>TYPES: 5 - None, 15 - wLan0, 25 - Eth0</text>
 		<form button="Update" title="Network parameters">
                     <textedit title="Network Type"
                         source="device.settings.smartdesk.connection.code"
                         destination="device.settings.smartdesk.connection.code" type="float" />
+                </form>
+		<text>This is the path from Home page to Radio</text>	
+ 		<form button="Update" title="Initial Music Radio path">
+                    <textedit title="Option"
+                        source="device.settings.smartdesk.music.option"
+                        destination="device.settings.smartdesk.music.option" type="string" />
+	            <textedit title="Addon"
+                        source="device.settings.smartdesk.music.addon"
+                        destination="device.settings.smartdesk.music.addon" type="string" />
+		    <textedit title="Category"
+                        source="device.settings.smartdesk.music.category"
+                        destination="device.settings.smartdesk.music.category" type="string" />
+		</form>
+		<text>Set the music station to play based on your mood</text>	
+		<form button="Relax" title="Music Relax">
+                    <textedit title="0 = Stop, 1 = Play"
+                        source="device.settings.smartdesk.music-relax.activate"
+                        destination="device.settings.smartdesk.music-relax.activate" type="float" />
+		    <textedit title="Type"
+                        source="device.settings.smartdesk.music-relax.type"
+                        destination="device.settings.smartdesk.music-relax.type" type="string" />
+                    <textedit title="Station"
+                        source="device.settings.smartdesk.music-relax.station"
+                        destination="device.settings.smartdesk.music-relax.station" type="string" />
                 </form>
 	    </tab>
 	</mastertabcontainer>

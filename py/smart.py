@@ -53,6 +53,12 @@ class NetworkSettings(Task):
         """Catches the 'settings_update' signal for 'smartdesk'"""
         # This signal is sent on startup and whenever settings are changed by the server
         self.code = settings.get_float('connection', 'code', 1.0)
+	self.option = settings.get('music', 'option')
+	self.addon = settings.get('music', 'addon')
+	self.category = settings.get('music', 'category')
+	self.relax_activate = settings.get_float('music-relax','activate', 1.0)
+	self.relax_type = settings.get('music-relax', 'type')
+	self.relax_station = settings.get('music-relax','station')
 	ip = "No Connection"
 	if int(self.code) < 11:
 		print 'Disabling networks'
@@ -73,27 +79,38 @@ class NetworkSettings(Task):
    	if ip != "No Connection":
 		required = ""
 		xbmc = self.login_xbmc(ip)
-		# Show notification
-		xbmc.GUI.ShowNotification({"title":"Smartdesk", "message":ip})
-		time.sleep(5)
-		self.goto_music(xbmc, ip)
-		print "I am in music"
-		required = "Music Add-ons"
-		self.goto_goal(xbmc, ip, required)
-		print "I am in music addons"
-	 	time.sleep(5)
-		required = "Radio"
-		self.goto_goal(xbmc, ip, required)
-		print "I am in radio"
-		time.sleep(10)
-		required = "Browse by genre"
-		self.goto_goal(xbmc, ip, required)
-		print "I am in genre"
-		time.sleep(10)
-		self.goto_goal(xbmc, ip, "Celtic")
-		print "I am in celtic"
-		self.goto_goal(xbmc, ip, "Celtic Music Radio")
-		print "I am playing celic music station"
+		if self.relax_activate == 1:
+			self.play_relaxed_music(xbmc, ip)
+		elif self.relax_activate == 0:
+			self.stop_music(xbmc, ip)
+
+    def play_relaxed_music(self, xbmc, ip):
+	#show notification
+	xbmc.GUI.ShowNotification({"title":"Smartdesk", "message":ip})
+        time.sleep(5)
+        self.goto_music(xbmc, ip)
+        print "I am in music, looking for " + self.option
+        required = self.option
+        self.goto_goal(xbmc, ip, required)
+        print "I am in " + self.option
+        time.sleep(5)
+        required = self.addon
+        self.goto_goal(xbmc, ip, required)
+        print "I am in " + self.addon
+        time.sleep(10)
+        required = self.category
+        self.goto_goal(xbmc, ip, required)
+        print "I am in " + self.category
+        time.sleep(10)
+        self.goto_goal(xbmc, ip, self.relax_type)
+        print "I am in " + self.relax_type
+        self.goto_goal(xbmc, ip, self.relax_station)
+        print "I am playing " + self.relax_station
+
+    def stop_music(self, xbmc, ip):
+	print 'Stopping player'
+	xbmc.Player.Stop({"playerid":0})
+	xbmc.GUI.ActivateWindow(window="home")
 
     def goto_music(self, xbmc, ip):
 	xbmc.GUI.ActivateWindow(window="music")
@@ -102,6 +119,7 @@ class NetworkSettings(Task):
 	at = get_xbmc_main_label(ip)
 	self.auto_pager(xbmc, ip, destination, at)
 	xbmc.GUI.ActivateWindow(window="music")
+
 
     def auto_pager(self, xbmc, ip, destination, at):
 	while (destination != at):
@@ -119,11 +137,17 @@ class NetworkSettings(Task):
 		print "a " + acquired + " r " + required
 		xbmc.Input.Down()
 		time.sleep(2)
-   		acquired = get_xbmc_label(ip)["result"]["ListItem.Label"]
+   		try:
+			acquired = get_xbmc_label(ip)["result"]["ListItem.Label"].encode('ascii','ignore')
+		except:
+			acquired = "Don't bother"
 
     def goto_goal(self, xbmc, ip, required):
     	print required
-	acquired = get_xbmc_label(ip)["result"]["ListItem.Label"]
+	try:
+		acquired = get_xbmc_label(ip)["result"]["ListItem.Label"].encode('ascii','ignore')
+	except:
+		acquired = "Don't bother"
 	time.sleep(2)
 	self.auto_selector_xbmc(xbmc, required, acquired, ip)
 	self.select_xbmc(xbmc)
