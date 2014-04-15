@@ -31,12 +31,71 @@
                     <textedit title="0 = Stop, 1 = Play"
                         source="device.settings.smartdesk.music-relax.activate"
                         destination="device.settings.smartdesk.music-relax.activate" type="float" />
+		    <textedit title="Volume"
+                        source="device.settings.smartdesk.music-relax.volume"
+                        destination="device.settings.smartdesk.music-relax.volume" type="float" />
 		    <textedit title="Type"
                         source="device.settings.smartdesk.music-relax.type"
                         destination="device.settings.smartdesk.music-relax.type" type="string" />
                     <textedit title="Station"
                         source="device.settings.smartdesk.music-relax.station"
                         destination="device.settings.smartdesk.music-relax.station" type="string" />
+                </form>
+		<form button="Happy" title="Music Happy">
+                    <textedit title="0 = Stop, 1 = Play"
+                        source="device.settings.smartdesk.music-happy.activate"
+                        destination="device.settings.smartdesk.music-happy.activate" type="float" />
+                    <textedit title="Volume"
+                        source="device.settings.smartdesk.music-happy.volume"
+                        destination="device.settings.smartdesk.music-happy.volume" type="float" />
+                    <textedit title="Type"
+                        source="device.settings.smartdesk.music-happy.type"
+                        destination="device.settings.smartdesk.music-happy.type" type="string" />
+                    <textedit title="Station"
+                        source="device.settings.smartdesk.music-happy.station"
+                        destination="device.settings.smartdesk.music-happy.station" type="string" />
+                </form>
+		<form button="Sad" title="Music Sad">
+                    <textedit title="0 = Stop, 1 = Play"
+                        source="device.settings.smartdesk.music-sad.activate"
+                        destination="device.settings.smartdesk.music-sad.activate" type="float" />
+                    <textedit title="Volume"
+                        source="device.settings.smartdesk.music-sad.volume"
+                        destination="device.settings.smartdesk.music-sad.volume" type="float" />
+                    <textedit title="Type"
+                        source="device.settings.smartdesk.music-sad.type"
+                        destination="device.settings.smartdesk.music-sad.type" type="string" />
+                    <textedit title="Station"
+                        source="device.settings.smartdesk.music-sad.station"
+                        destination="device.settings.smartdesk.music-sad.station" type="string" />
+                </form>
+ 		<form button="Annoyed" title="Music Annoyed">
+                    <textedit title="0 = Stop, 1 = Play"
+                        source="device.settings.smartdesk.music-annoyed.activate"
+                        destination="device.settings.smartdesk.music-annoyed.activate" type="float" />
+                    <textedit title="Volume"
+                        source="device.settings.smartdesk.music-annoyed.volume"
+                        destination="device.settings.smartdesk.music-annoyed.volume" type="float" />
+                    <textedit title="Type"
+                        source="device.settings.smartdesk.music-annoyed.type"
+                        destination="device.settings.smartdesk.music-annoyed.type" type="string" />
+                    <textedit title="Station"
+                        source="device.settings.smartdesk.music-annoyed.station"
+                        destination="device.settings.smartdesk.music-annoyed.station" type="string" />
+                </form>
+ 		<form button="Regional" title="Music Regional">
+                    <textedit title="0 = Stop, 1 = Play"
+                        source="device.settings.smartdesk.music-regional.activate"
+                        destination="device.settings.smartdesk.music-regional.activate" type="float" />
+                    <textedit title="Volume"
+                        source="device.settings.smartdesk.music-regional.volume"
+                        destination="device.settings.smartdesk.music-regional.volume" type="float" />
+                    <textedit title="Type"
+                        source="device.settings.smartdesk.music-regional.type"
+                        destination="device.settings.smartdesk.music-regional.type" type="string" />
+                    <textedit title="Station"
+                        source="device.settings.smartdesk.music-regional.station"
+                        destination="device.settings.smartdesk.music-regional.station" type="string" />
                 </form>
 	    </tab>
 	</mastertabcontainer>

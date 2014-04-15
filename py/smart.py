@@ -53,52 +53,54 @@ class NetworkSettings(Task):
         """Catches the 'settings_update' signal for 'smartdesk'"""
         # This signal is sent on startup and whenever settings are changed by the server
         self.code = settings.get_float('connection', 'code', 1.0)
-		self.option = settings.get('music', 'option')
-		self.addon = settings.get('music', 'addon')
-		self.category = settings.get('music', 'category')
-		self.relax_activate = settings.get_float('music-relax','activate', 1.0)
-		self.relax_type = settings.get('music-relax', 'type')
-		self.relax_station = settings.get('music-relax','station')
-		ip = "No Connection"
-		if int(self.code) < 11:
-			print 'Disabling networks'
-		elif int(self.code) < 21:
-			try:
-		    	print 'Enabling wireless mode'
-		    	ip = self.get_ip_address('wlan0')
-			except:
+	self.option = settings.get('music', 'option')
+	self.addon = settings.get('music', 'addon')
+	self.category = settings.get('music', 'category')
+	self.relax_volume = settings.get_float('music-relax', 'volume', 1.0)
+	self.relax_activate = settings.get_float('music-relax','activate', 1.0)
+	self.relax_type = settings.get('music-relax', 'type')
+	self.relax_station = settings.get('music-relax','station')
+	ip = "No Connection"
+	if int(self.code) < 11:
+		print 'Disabling networks'
+	elif int(self.code) < 21:
+		try:
+	  		print 'Enabling wireless mode'
+	    		ip = self.get_ip_address('wlan0')
+		except:
 		    	ip = "No Connection"
-		elif int(self.code) < 31:
-			try:
+	elif int(self.code) < 31:
+		try:
 		    	print 'Enabling ethernet mode'
 		    	ip = self.get_ip_address('eth0')
-			except:
+		except:
 		    	ip = "No Connection"
-		print 'I am the network code', ip,  self.code
-		# Notify the user if network ip is detected
-   		if ip != "No Connection":
-			required = ""
-			xbmc = self.login_xbmc(ip)
-			if self.relax_activate == 1:
-				self.play_relaxed_music(xbmc, ip)
-			elif self.relax_activate == 0:
-				self.stop_music(xbmc, ip)
+	print 'I am the network code', ip,  self.code
+	# Notify the user if network ip is detected
+   	if ip != "No Connection":
+		required = ""
+		xbmc = self.login_xbmc(ip)
+		if self.relax_activate == 1:
+			self.play_relaxed_music(xbmc, ip)
+		elif self.relax_activate == 0:
+			self.stop_music(xbmc, ip)
 
     def play_relaxed_music(self, xbmc, ip):
-		self.set_default_settings(xbmc, ip)
+	xbmc.Application.SetVolume({"volume": self.relax_volume})
+	self.set_default_settings(xbmc, ip)
         self.goto_goal(xbmc, ip, self.relax_type)
         print "I am in " + self.relax_type
         self.goto_goal(xbmc, ip, self.relax_station)
         print "I am playing " + self.relax_station
 
     def stop_music(self, xbmc, ip):
-		print 'Stopping player'
-		xbmc.Player.Stop({"playerid":0})
-		xbmc.GUI.ActivateWindow(window="home")
+	print 'Stopping player'
+	xbmc.Player.Stop({"playerid":0})
+	xbmc.GUI.ActivateWindow(window="home")
 
-	def set_default_settings(self, xbmc, ip):
-		#show notification
-		xbmc.GUI.ShowNotification({"title":"Smartdesk", "message":ip})
+    def set_default_settings(self, xbmc, ip):
+	#show notification
+	xbmc.GUI.ShowNotification({"title":"Smartdesk", "message":ip})
         time.sleep(5)
         self.goto_music(xbmc, ip)
         print "I am in music, looking for " + self.option
@@ -116,55 +118,55 @@ class NetworkSettings(Task):
         time.sleep(10)
 
     def goto_music(self, xbmc, ip):
-		xbmc.GUI.ActivateWindow(window="music")
-		# Clear History
-		destination = "Home"
-		at = get_xbmc_main_label(ip)
-		self.auto_pager(xbmc, ip, destination, at)
-		xbmc.GUI.ActivateWindow(window="music")
+	xbmc.GUI.ActivateWindow(window="music")
+	# Clear History
+	destination = "Home"
+	at = get_xbmc_main_label(ip)
+	self.auto_pager(xbmc, ip, destination, at)
+	xbmc.GUI.ActivateWindow(window="music")
 
     def auto_pager(self, xbmc, ip, destination, at):
-		while (destination != at):
-			print "I am at " + at
-			xbmc.Input.Back()
- 			time.sleep(2)
-			at = get_xbmc_main_label(ip)
+	while (destination != at):
+		print "I am at " + at
+		xbmc.Input.Back()
+ 		time.sleep(2)
+		at = get_xbmc_main_label(ip)
 
     def select_xbmc(self, xbmc):
-		xbmc.Input.Select()
-		time.sleep(5)
+	xbmc.Input.Select()
+	time.sleep(5)
 
     def auto_selector_xbmc(self, xbmc, required, acquired, ip):
-		while (required != acquired):
-			print "a " + acquired + " r " + required
-			xbmc.Input.Down()
-			time.sleep(2)
-   			try:
-				acquired = get_xbmc_label(ip)["result"]["ListItem.Label"].encode('ascii','ignore')
-			except:
-				acquired = "Don't bother"
-
-    def goto_goal(self, xbmc, ip, required):
-    	print required
-		try:
+	while (required != acquired):
+		print "a " + acquired + " r " + required
+		xbmc.Input.Down()
+		time.sleep(2)
+   		try:
 			acquired = get_xbmc_label(ip)["result"]["ListItem.Label"].encode('ascii','ignore')
 		except:
 			acquired = "Don't bother"
-		time.sleep(2)
-		self.auto_selector_xbmc(xbmc, required, acquired, ip)
-		self.select_xbmc(xbmc)
+
+    def goto_goal(self, xbmc, ip, required):
+    	print required
+	try:
+		acquired = get_xbmc_label(ip)["result"]["ListItem.Label"].encode('ascii','ignore')
+	except:
+		acquired = "Don't bother"
+	time.sleep(2)
+	self.auto_selector_xbmc(xbmc, required, acquired, ip)
+	self.select_xbmc(xbmc)
 
     def login_xbmc(self, ip):
-  		# Login with default xbmc/xbmc credential
-		url = 'http://' + ip + '/jsonrpc'
-		xbmc = XBMC(url)
-  		return xbmc
+  	# Login with default xbmc/xbmc credential
+	url = 'http://' + ip + '/jsonrpc'
+	xbmc = XBMC(url)
+  	return xbmc
 
     def poll(self):
 	"""Called on a schedule defined in dataplicity.conf"""
-        CPU_usage = getCPUuse()
-		print CPU_usage
-        self.do_sample(get_rpi_temperature())
+        CPU_usage = float(getCPUuse())
+	print CPU_usage, get_rpi_temperature()
+        self.do_sample(CPU_usage)
 
     def do_sample(self, value):
         self.client.sample_now(self.sampler, value)
