@@ -48,11 +48,8 @@ class NetworkSettings(Task):
                 struct.pack('256s', ifname[:15])
         )[20:24])
 
-    @onsignal('settings_update', 'smartdesk')
-    def on_settings_update(self, name, settings):
-        """Catches the 'settings_update' signal for 'smartdesk'"""
-        # This signal is sent on startup and whenever settings are changed by the server
-        self.code = settings.get_float('connection', 'code', 1.0)
+    def set_basic_settings(self, settings):
+    	self.code = settings.get_float('connection', 'code', 1.0)
 	self.option = settings.get('music', 'option')
 	self.addon = settings.get('music', 'addon')
 	self.category = settings.get('music', 'category')
@@ -60,6 +57,28 @@ class NetworkSettings(Task):
 	self.relax_activate = settings.get_float('music-relax','activate', 1.0)
 	self.relax_type = settings.get('music-relax', 'type')
 	self.relax_station = settings.get('music-relax','station')
+	self.happy_volume = settings.get_float('music-happy', 'volume', 1.0)
+	self.happy_activate = settings.get_float('music-happy','activate', 1.0)
+	self.happy_type = settings.get('music-happy', 'type')
+	self.happy_station = settings.get('music-happy','station')
+	self.sad_volume = settings.get_float('music-sad', 'volume', 1.0)
+	self.sad_activate = settings.get_float('music-sad','activate', 1.0)
+	self.sad_type = settings.get('music-sad', 'type')
+	self.sad_station = settings.get('music-sad','station')
+	self.annoyed_volume = settings.get_float('music-annoyed', 'volume', 1.0)
+	self.annoyed_activate = settings.get_float('music-annoyed','activate', 1.0)
+	self.annoyed_type = settings.get('music-annoyed', 'type')
+	self.annoyed_station = settings.get('music-annoyed','station')
+	self.regional_volume = settings.get_float('music-regional', 'volume', 1.0)
+	self.regional_activate = settings.get_float('music-regional','activate', 1.0)
+	self.regional_type = settings.get('music-regional', 'type')
+	self.regional_station = settings.get('music-regional','station')
+
+    @onsignal('settings_update', 'smartdesk')
+    def on_settings_update(self, name, settings):
+        """Catches the 'settings_update' signal for 'smartdesk'"""
+        # This signal is sent on startup and whenever settings are changed by the server
+  	self.set_basic_settings(settings)
 	ip = "No Connection"
 	if int(self.code) < 11:
 		print 'Disabling networks'
@@ -80,11 +99,36 @@ class NetworkSettings(Task):
    	if ip != "No Connection":
 		required = ""
 		xbmc = self.login_xbmc(ip)
-		if self.relax_activate == 1:
-			self.play_relaxed_music(xbmc, ip)
-		elif self.relax_activate == 0:
-			self.stop_music(xbmc, ip)
+		# Play music station
+		select_music_station(xbmc, ip)
 
+    def select_music_station(self, xbmc, ip):
+    	# Play relaxed music
+	if self.relax_activate == 1:
+		self.play_relaxed_music(xbmc, ip)
+	elif self.relax_activate == 0:
+		self.stop_music(xbmc, ip)
+	# Play happy music
+	if self.happy_activate == 1:
+		self.play_happy_music(xbmc, ip)
+	elif self.happy_activate == 0:
+		self.stop_music(xbmc, ip)
+	# Play sad music
+	if self.sad_activate == 1:
+		self.play_sad_music(xbmc, ip)
+	elif self.sad_activate == 0:
+		self.stop_music(xbmc, ip)
+	# Play annoyed music
+	if self.annoyed_activate == 1:
+		self.play_annoyed_music(xbmc, ip)
+	elif self.annoyed_activate == 0:
+		self.stop_music(xbmc, ip)
+	# Play regional music
+	if self.regional_activate == 1:
+		self.play_regional_music(xbmc, ip)
+	elif self.regional_activate == 0:
+		self.stop_music(xbmc, ip)
+    
     def play_relaxed_music(self, xbmc, ip):
 	xbmc.Application.SetVolume({"volume": self.relax_volume})
 	self.set_default_settings(xbmc, ip)
@@ -92,6 +136,38 @@ class NetworkSettings(Task):
         print "I am in " + self.relax_type
         self.goto_goal(xbmc, ip, self.relax_station)
         print "I am playing " + self.relax_station
+        
+    def play_happy_music(self, xbmc, ip):
+	xbmc.Application.SetVolume({"volume": self.happy_volume})
+	self.set_default_settings(xbmc, ip)
+        self.goto_goal(xbmc, ip, self.happy_type)
+        print "I am in " + self.happy_type
+        self.goto_goal(xbmc, ip, self.happy_station)
+        print "I am playing " + self.happy_station
+
+    def play_sad_music(self, xbmc, ip):
+	xbmc.Application.SetVolume({"volume": self.sad_volume})
+	self.set_default_settings(xbmc, ip)
+        self.goto_goal(xbmc, ip, self.sad_type)
+        print "I am in " + self.sad_type
+        self.goto_goal(xbmc, ip, self.sad_station)
+        print "I am playing " + self.sad_station
+        
+    def play_annoyed_music(self, xbmc, ip):
+	xbmc.Application.SetVolume({"volume": self.annoyed_volume})
+	self.set_default_settings(xbmc, ip)
+        self.goto_goal(xbmc, ip, self.annoyed_type)
+        print "I am in " + self.annoyed_type
+        self.goto_goal(xbmc, ip, self.annoyed_station)
+        print "I am playing " + self.annoyed_station
+        
+    def play_regional_music(self, xbmc, ip):
+	xbmc.Application.SetVolume({"volume": self.regional_volume})
+	self.set_default_settings(xbmc, ip)
+        self.goto_goal(xbmc, ip, self.regional_type)
+        print "I am in " + self.regional_type
+        self.goto_goal(xbmc, ip, self.regional_station)
+        print "I am playing " + self.regional_station
 
     def stop_music(self, xbmc, ip):
 	print 'Stopping player'
