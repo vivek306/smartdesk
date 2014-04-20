@@ -58,19 +58,19 @@ class NetworkSettings(Task):
 	self.relax_type = settings.get('music-relax', 'type')
 	self.relax_station = settings.get('music-relax','station')
 	self.happy_volume = settings.get_float('music-happy', 'volume', 1.0)
-	self.happy_activate = settings.get_float('music-happy','activate', 1.0)
+	self.happy_activate = settings.get('music-happy','activate')
 	self.happy_type = settings.get('music-happy', 'type')
 	self.happy_station = settings.get('music-happy','station')
 	self.sad_volume = settings.get_float('music-sad', 'volume', 1.0)
-	self.sad_activate = settings.get_float('music-sad','activate', 1.0)
+	self.sad_activate = settings.get('music-sad','activate')
 	self.sad_type = settings.get('music-sad', 'type')
 	self.sad_station = settings.get('music-sad','station')
 	self.annoyed_volume = settings.get_float('music-annoyed', 'volume', 1.0)
-	self.annoyed_activate = settings.get_float('music-annoyed','activate', 1.0)
+	self.annoyed_activate = settings.get('music-annoyed','activate')
 	self.annoyed_type = settings.get('music-annoyed', 'type')
 	self.annoyed_station = settings.get('music-annoyed','station')
 	self.regional_volume = settings.get_float('music-regional', 'volume', 1.0)
-	self.regional_activate = settings.get_float('music-regional','activate', 1.0)
+	self.regional_activate = settings.get('music-regional','activate')
 	self.regional_type = settings.get('music-regional', 'type')
 	self.regional_station = settings.get('music-regional','station')
 
@@ -107,16 +107,16 @@ class NetworkSettings(Task):
 	if self.relax_activate == "yes":
 		self.play_relaxed_music(xbmc, ip)
 	# Play happy music
-	elif self.happy_activate == 1:
+	elif self.happy_activate == "yes":
 		self.play_happy_music(xbmc, ip)
 	# Play sad music
-	elif self.sad_activate == 1:
+	elif self.sad_activate == "yes":
 		self.play_sad_music(xbmc, ip)
 	# Play annoyed music
-	elif self.annoyed_activate == 1:
+	elif self.annoyed_activate == "yes":
 		self.play_annoyed_music(xbmc, ip)
 	# Play regional music
-	elif self.regional_activate == 1:
+	elif self.regional_activate == "yes":
 		self.play_regional_music(xbmc, ip)
 	# stop music
 	else:
