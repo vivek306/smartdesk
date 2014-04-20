@@ -100,7 +100,7 @@ class NetworkSettings(Task):
 		required = ""
 		xbmc = self.login_xbmc(ip)
 		# Play music station
-		select_music_station(xbmc, ip)
+		self.select_music_station(xbmc, ip)
 
     def select_music_station(self, xbmc, ip):
     	# Play relaxed music
