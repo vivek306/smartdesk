@@ -106,27 +106,20 @@ class NetworkSettings(Task):
     	# Play relaxed music
 	if self.relax_activate == "yes":
 		self.play_relaxed_music(xbmc, ip)
-	elif self.relax_activate == "no":
-		self.stop_music(xbmc, ip)
 	# Play happy music
-	if self.happy_activate == 1:
+	elif self.happy_activate == 1:
 		self.play_happy_music(xbmc, ip)
-	elif self.happy_activate == 0:
-		self.stop_music(xbmc, ip)
 	# Play sad music
-	if self.sad_activate == 1:
+	elif self.sad_activate == 1:
 		self.play_sad_music(xbmc, ip)
-	elif self.sad_activate == 0:
-		self.stop_music(xbmc, ip)
 	# Play annoyed music
-	if self.annoyed_activate == 1:
+	elif self.annoyed_activate == 1:
 		self.play_annoyed_music(xbmc, ip)
-	elif self.annoyed_activate == 0:
-		self.stop_music(xbmc, ip)
 	# Play regional music
-	if self.regional_activate == 1:
+	elif self.regional_activate == 1:
 		self.play_regional_music(xbmc, ip)
-	elif self.regional_activate == 0:
+	# stop music
+	else:
 		self.stop_music(xbmc, ip)
     
     def play_relaxed_music(self, xbmc, ip):
