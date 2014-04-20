@@ -44,7 +44,7 @@
 		    
 		    <checkbox title="Happy" 
 		    	value="device.settings.smartdesk.music-relax.activate" 
-		    	destination="device.settings.smartdesk.music-happy.activate" on="1.0" off="0.0" />
+		    	destination="device.settings.smartdesk.music-happy.activate" on="yes" off="no" />
                     <textedit title="Volume"
                         source="device.settings.smartdesk.music-happy.volume"
                         destination="device.settings.smartdesk.music-happy.volume" type="float" />
@@ -57,7 +57,7 @@
                         
                     <checkbox title="Sad" 
 		    	value="device.settings.smartdesk.music-sad.activate" 
-		    	destination="device.settings.smartdesk.music-sad.activate" on="1.0" off="0.0" />
+		    	destination="device.settings.smartdesk.music-sad.activate" on="yes" off="no" />
                     <textedit title="Volume"
                         source="device.settings.smartdesk.music-sad.volume"
                         destination="device.settings.smartdesk.music-sad.volume" type="float" />
@@ -70,7 +70,7 @@
                 
                     <checkbox title="Annoyed" 
 		    	value="device.settings.smartdesk.music-annoyed.activate" 
-		    	destination="device.settings.smartdesk.music-annoyed.activate" on="1.0" off="0.0" />
+		    	destination="device.settings.smartdesk.music-annoyed.activate" on="yes" off="no" />
                     <textedit title="Volume"
                         source="device.settings.smartdesk.music-annoyed.volume"
                         destination="device.settings.smartdesk.music-annoyed.volume" type="float" />
@@ -83,7 +83,7 @@
                 
                     <checkbox title="Regional" 
 		    	value="device.settings.smartdesk.music-regional.activate" 
-		    	destination="device.settings.smartdesk.music-regional.activate" on="1.0" off="0.0" />
+		    	destination="device.settings.smartdesk.music-regional.activate" on="yes" off="no" />
                     <textedit title="Volume"
                         source="device.settings.smartdesk.music-regional.volume"
                         destination="device.settings.smartdesk.music-regional.volume" type="float" />
