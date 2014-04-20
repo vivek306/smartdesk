@@ -77,7 +77,7 @@ To Run the Smart Desk
 <b>sudo dataplicity run</b> inside the Smartdesk folder and to stop "Ctrl+c"  
 
 Now Go to your dataplicity account and you should see my/Smart Desk/"Weird Numbers"/"Yor Device with Weird Numbers" click it  
-![alt tag](https://github.com/vivek306/smartdesk/blob/master/images/SmartDesk%20Sapota%201.0%20Control%20Panel.png)  
+![alt tag](https://raw.githubusercontent.com/vivek306/smartdesk/master/images/SmartDesk%20Sapota%201.0%20Control%20Panel.png)  
 
 Now "Check" - <b>Relax</b> and Click "Play Music", you should see   
 ![alt tag](https://raw.githubusercontent.com/vivek306/smartdesk/master/images/Sapota%201.0.png)  
