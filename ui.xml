@@ -26,7 +26,8 @@
                         source="device.settings.smartdesk.music.category"
                         destination="device.settings.smartdesk.music.category" type="string" />
 		</form>
-		<text>Set the music station to play based on your mood</text>	
+		<text>Set the music station to play based on your mood</text>
+		<text>To stop the music "Uncheck All" and click "Play Music"</text>
 		<form button="Play Music" title="Music Relax">
 		    
 		    <checkbox title="Relax" 
