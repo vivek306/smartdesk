@@ -54,7 +54,7 @@ class NetworkSettings(Task):
 	self.addon = settings.get('music', 'addon')
 	self.category = settings.get('music', 'category')
 	self.relax_volume = settings.get_float('music-relax', 'volume', 1.0)
-	self.relax_activate = settings.get_float('music-relax','activate', 1.0)
+	self.relax_activate = settings.get('music-relax','activate')
 	self.relax_type = settings.get('music-relax', 'type')
 	self.relax_station = settings.get('music-relax','station')
 	self.happy_volume = settings.get_float('music-happy', 'volume', 1.0)
@@ -104,9 +104,9 @@ class NetworkSettings(Task):
 
     def select_music_station(self, xbmc, ip):
     	# Play relaxed music
-	if self.relax_activate == 1:
+	if self.relax_activate == "yes":
 		self.play_relaxed_music(xbmc, ip)
-	elif self.relax_activate == 0:
+	elif self.relax_activate == "no":
 		self.stop_music(xbmc, ip)
 	# Play happy music
 	if self.happy_activate == 1:
