@@ -27,10 +27,11 @@
                         destination="device.settings.smartdesk.music.category" type="string" />
 		</form>
 		<text>Set the music station to play based on your mood</text>	
-		<form button="Relax" title="Music Relax">
+		<form button="Play Music" title="Music Relax">
+		    
 		    <checkbox title="Relax" 
 		    	value="device.settings.smartdesk.music-relax.activate" 
-		    	destination="device.settings.smartdesk.music-relax.activate" on="1" off="0" />
+		    	destination="device.settings.smartdesk.music-relax.activate" on="1.0" off="0.0" />
 		    <textedit title="Volume"
                         source="device.settings.smartdesk.music-relax.volume"
                         destination="device.settings.smartdesk.music-relax.volume" type="float" />
@@ -40,11 +41,10 @@
                     <textedit title="Station"
                         source="device.settings.smartdesk.music-relax.station"
                         destination="device.settings.smartdesk.music-relax.station" type="string" />
-                </form>
-		<form button="Happy" title="Music Happy">
-                    <textedit title="0 = Stop, 1 = Play"
-                        source="device.settings.smartdesk.music-happy.activate"
-                        destination="device.settings.smartdesk.music-happy.activate" type="float" />
+		    
+		    <checkbox title="Happy" 
+		    	value="device.settings.smartdesk.music-relax.activate" 
+		    	destination="device.settings.smartdesk.music-relax.activate" on="1.0" off="0.0" />
                     <textedit title="Volume"
                         source="device.settings.smartdesk.music-happy.volume"
                         destination="device.settings.smartdesk.music-happy.volume" type="float" />
@@ -54,6 +54,7 @@
                     <textedit title="Station"
                         source="device.settings.smartdesk.music-happy.station"
                         destination="device.settings.smartdesk.music-happy.station" type="string" />
+                        
                 </form>
 		<form button="Sad" title="Music Sad">
                     <textedit title="0 = Stop, 1 = Play"
